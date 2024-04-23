@@ -1,5 +1,7 @@
-import Image from "next/image";
+
 import { HoverEffect } from "../components/ui/card-hover-effect";
+import { NavbarDemo } from "./navbar";
+
 
 export function CardHoverEffectDemo() {
   return (
@@ -9,7 +11,8 @@ export function CardHoverEffectDemo() {
   );
 }
 export default function Home() {
-  return (<CardHoverEffectDemo />
+  return (<div className="home-container"><NavbarDemo />
+    <CardHoverEffectDemo /></div>
   );
 }
 

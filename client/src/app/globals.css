@@ -28,3 +28,9 @@ body {
     text-wrap: balance;
   }
 }
+
+.home-container {
+  display: grid;
+  grid-template-rows: auto;
+  /* Adjust this value as needed */
+}
