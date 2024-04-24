@@ -6,7 +6,7 @@ import { cn } from "@/utils/cn";
 export const NavbarDemo = () => {
     return (
         <div className="relative w-full flex items-center justify-center">
-            <Navbar className="top-2" />
+            <Navbar className="top-6" />
             <p className="text-black dark:text-white">
 
             </p>

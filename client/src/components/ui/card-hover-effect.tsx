@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
 export const HoverEffect = ({
     items,
@@ -76,13 +77,29 @@ export const HoverEffect = ({
                     <Card>
                         <CardTitle>{item.name}</CardTitle>
                         <CardDescription>{item.current_price}</CardDescription>
-                        <img className="w-24" src={item.image}></img>
+                        <img className="w-16 absolute top-2 right-2" src={item.image}></img>
+                        <LikeCard ClassName="absolute bottom-0 right-0" />
                     </Card>
                 </Link>
             ))}
         </div>
     );
 };
+
+export const LikeCard = ({ ClassName }) => {
+    const [isLiked, setIsLiked] = useState(false);
+
+    const handleLikeClick = () => {
+        setIsLiked(!isLiked);
+    };
+
+    return (
+        <FaHeart
+            className={`${ClassName} text-red-500 cursor-pointer ${isLiked ? 'fill-current' : 'fill-white'}`}
+            onClick={handleLikeClick}
+        />
+    )
+}
 
 export const Card = ({
     className,
@@ -94,12 +111,12 @@ export const Card = ({
     return (
         <div
             className={cn(
-                "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+                "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent relative z-20",
                 className
             )}
         >
             <div className="relative z-50">
-                <div className="p-4">{children}</div>
+                <div className="p-2 min-h-36">{children}</div>
             </div>
         </div>
     );
@@ -112,7 +129,7 @@ export const CardTitle = ({
     children: React.ReactNode;
 }) => {
     return (
-        <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+        <h4 className={cn(" text-wrap w-1/2 text-zinc-100 font-bold tracking-wide mt-4", className)}>
             {children}
         </h4>
     );

@@ -11,8 +11,11 @@ export function CardHoverEffectDemo() {
   );
 }
 export default function Home() {
-  return (<div className="home-container"><NavbarDemo />
-    <CardHoverEffectDemo /></div>
+  return (<div className="flex flex-col gap-20 bg-gray-950 bg-cover min-h-screen">
+
+    <div><NavbarDemo /></div>
+    <div><CardHoverEffectDemo /></div>
+  </div>
   );
 }
 
