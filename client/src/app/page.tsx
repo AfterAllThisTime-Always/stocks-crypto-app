@@ -7,6 +7,7 @@ import { Coin } from "./interfaces";
 
 export function CardHoverEffectDemo() {
   const [coinData, setCoinData] = useState<Coin[]>();
+  const name = "Bheem";
 
   useEffect(() => {
     const getCoinData = async () => {
