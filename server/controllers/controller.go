@@ -1,13 +1,11 @@
-package main
+package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
-	"log"
 	"net/http"
-	"os"
-
-	"github.com/joho/godotenv"
+	"server/config"
 )
 
 type ROI struct {
@@ -45,20 +43,16 @@ type Coin struct {
 	LastUpdated               string  `json:"last_updated"`
 }
 
+var apiKey = config.GetEnvValue("API_KEY")
+
 func getCoinData() ([]Coin, error) {
-
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
 
 	url := "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr"
 
 	req, _ := http.NewRequest("GET", url, nil)
 
 	req.Header.Add("accept", "application/json")
-	req.Header.Add("x-cg-demo-api-key", os.Getenv("API_KEY"))
+	req.Header.Add("x-cg-demo-api-key", apiKey)
 
 	res, _ := http.DefaultClient.Do(req)
 
@@ -66,7 +60,7 @@ func getCoinData() ([]Coin, error) {
 	body, _ := io.ReadAll(res.Body)
 
 	var coins []Coin
-	err = json.Unmarshal(body, &coins)
+	err := json.Unmarshal(body, &coins)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +159,7 @@ func getCoinData() ([]Coin, error) {
 // 	// Add other coins here...
 // }
 
-func coinsHandler(w http.ResponseWriter, r *http.Request) {
+func CoinsHandler(w http.ResponseWriter, r *http.Request) {
 	coins, err := getCoinData()
 	if err != nil {
 		http.Error(w, "Failed to fetch coin data", http.StatusInternalServerError)
@@ -174,4 +168,30 @@ func coinsHandler(w http.ResponseWriter, r *http.Request) {
 	(w).Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(coins)
+}
+
+func getCoinChart(currency string, coin string) (string, error) {
+
+	url := fmt.Sprintf("https://api.coingecko.com/api/v3/coins/%s/market_chart?vs_currency=%s&days=7&interval=daily", coin, currency)
+
+	req, _ := http.NewRequest("GET", url, nil)
+
+	req.Header.Add("accept", "application/json")
+	req.Header.Add("x-cg-demo-api-key", "CG-N1XfDjYtr1KoWbKX28yutQ2L")
+	res, _ := http.DefaultClient.Do(req)
+	defer res.Body.Close()
+	body, _ := io.ReadAll(res.Body)
+	fmt.Println(string(body))
+	return string(body), nil
+}
+
+func CoinChart(w http.ResponseWriter, r *http.Request) {
+	coinChart, err := getCoinChart("inr", "bitcoin")
+	if err != nil {
+		http.Error(w, "Failed to fetch coin chart", http.StatusInternalServerError)
+		return
+	}
+	(w).Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(coinChart)
 }
