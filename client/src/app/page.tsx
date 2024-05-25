@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { HoverEffect } from "../components/ui/card-hover-effect";
-import { NavbarDemo } from "./navbar";
+import { CardGrid } from "../components/ui/card-grid";
+import { Navbar } from "../components/ui/navbar";
 import axios from "axios";
 import { Coin } from "./interfaces";
 
@@ -20,15 +20,15 @@ export function CardHoverEffectDemo() {
   }, []);
   return (
     <div /*className="max-w-5xl mx-auto px-8"*/>
-      <HoverEffect items={coinData} />
+      <CardGrid items={coinData} />
     </div>
   );
 }
 export default function Home() {
   return (
-    <div className="flex flex-col gap-20 bg-gray-950 bg-cover min-h-screen">
+    <div className="flex flex-col gap-20 bg-gray-950 bg-cover min-h-screen z-0">
       <div>
-        <NavbarDemo />
+        <Navbar />
       </div>
       <div className="ml-2 mr-2">
         <CardHoverEffectDemo />

@@ -1,20 +1,19 @@
 "use client";
 import React, { useState } from "react";
-import { HoveredLink, Menu, MenuItem, ProductItem } from "../components/ui/navbar-menu";
+import { HoveredLink, Menu, MenuItem, ProductItem } from "./navbar-item";
 import { cn } from "@/utils/cn";
 
-export const NavbarDemo = () => {
+export const Navbar = () => {
     return (
         <div className="relative w-full flex items-center justify-center">
-            <Navbar className="top-6" />
+            <NavContainer className="top-6" />
             <p className="text-black dark:text-white">
-
             </p>
         </div>
     );
 }
 
-function Navbar({ className }: { className?: string }) {
+function NavContainer({ className }: { className?: string }) {
     const [active, setActive] = useState<string | null>(null);
     return (
         <div

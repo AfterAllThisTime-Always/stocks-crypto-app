@@ -1,5 +1,6 @@
 "use client";
 
+import { LineChartProps } from "@/app/interfaces";
 import axios from "axios";
 import {
   ChartOptions,
@@ -12,7 +13,7 @@ import {
   PointElement,
   Title,
 } from "chart.js";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
@@ -25,7 +26,7 @@ ChartJS.register(
   Legend
 );
 
-export const LineChart = ({ data }) => {
+export const LineChart: React.FC<LineChartProps> = ({ data }) => {
   const chartData = {
     labels: data.timestamps.map((ts) => new Date(ts).toLocaleDateString()), // Convert timestamps to readable dates
     datasets: [
