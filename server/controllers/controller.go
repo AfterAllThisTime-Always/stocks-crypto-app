@@ -46,6 +46,7 @@ type Coin struct {
 var apiKey = config.GetEnvValue("API_KEY")
 
 func getCoinData() ([]Coin, error) {
+	fmt.Println("chutki")
 
 	url := "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr"
 
@@ -171,6 +172,7 @@ func CoinsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getCoinChart(currency string, coin string) (string, error) {
+	fmt.Println("Bheem")
 
 	url := fmt.Sprintf("https://api.coingecko.com/api/v3/coins/%s/market_chart?vs_currency=%s&days=7&interval=daily", coin, currency)
 
@@ -181,7 +183,6 @@ func getCoinChart(currency string, coin string) (string, error) {
 	res, _ := http.DefaultClient.Do(req)
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
-	fmt.Println(string(body))
 	return string(body), nil
 }
 

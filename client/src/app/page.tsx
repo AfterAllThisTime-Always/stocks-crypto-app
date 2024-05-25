@@ -7,8 +7,6 @@ import { Coin } from "./interfaces";
 
 export function CardHoverEffectDemo() {
   const [coinData, setCoinData] = useState<Coin[]>();
-  const name = "Bheem";
-
   useEffect(() => {
     const getCoinData = async () => {
       try {
@@ -20,7 +18,6 @@ export function CardHoverEffectDemo() {
     };
     getCoinData();
   }, []);
-  // await getCoinData
   return (
     <div /*className="max-w-5xl mx-auto px-8"*/>
       <HoverEffect items={coinData} />

@@ -6,6 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import CoinChart from "./coin-chart";
+import { ThreeDCardDemo } from "./chart-popup";
 
 export const HoverEffect = ({
   items,
@@ -83,13 +85,19 @@ export const Card = ({
   className?: string;
   children: React.ReactNode;
 }) => {
+  const [isChartOpen, setIsChartOpen] = useState(false);
+  const handleChartOpen = () => {
+    setIsChartOpen(!isChartOpen);
+  };
   return (
     <div
+      onClick={handleChartOpen}
       className={cn(
         "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent relative z-20",
         className
       )}
     >
+      {isChartOpen ? <ThreeDCardDemo /> : null}
       <div className="relative z-50">
         <div className="p-2 min-h-36">{children}</div>
       </div>
