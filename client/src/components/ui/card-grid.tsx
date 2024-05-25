@@ -54,7 +54,10 @@ export const CardGrid = ({
             <Card onOpen={() => setIsChartOpen(true)}>
               <CardTitle>{item.name}</CardTitle>
               <CardDescription>{item.current_price}</CardDescription>
-              <img className="w-16 absolute top-2 right-2" src={item.image}></img>
+              <img
+                className="w-16 absolute top-2 right-2"
+                src={item.image}
+              ></img>
               <LikeCard ClassName="absolute bottom-0 right-0" />
             </Card>
           </Link>
@@ -73,8 +76,9 @@ export const LikeCard = ({ ClassName }: LikeCardProps) => {
 
   return (
     <FaHeart
-      className={`${ClassName} text-red-500 cursor-pointer ${isLiked ? "fill-current" : "fill-white"
-        }`}
+      className={`${ClassName} text-green-700 cursor-pointer ${
+        isLiked ? "fill-current" : "fill-white"
+      }`}
       onClick={handleLikeClick}
     />
   );
@@ -89,7 +93,6 @@ export const Card = ({
   children: React.ReactNode;
   onOpen: () => void;
 }) => {
-
   return (
     <div
       onClick={onOpen}

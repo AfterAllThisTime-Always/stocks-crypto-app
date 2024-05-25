@@ -174,7 +174,7 @@ func CoinsHandler(w http.ResponseWriter, r *http.Request) {
 func getCoinChart(currency string, coin string) (string, error) {
 	fmt.Println("Bheem")
 
-	url := fmt.Sprintf("https://api.coingecko.com/api/v3/coins/%s/market_chart?vs_currency=%s&days=7&interval=daily", coin, currency)
+	url := fmt.Sprintf("https://api.coingecko.com/api/v3/coins/%s/market_chart?vs_currency=%s&days=365&interval=daily", coin, currency)
 
 	req, _ := http.NewRequest("GET", url, nil)
 
