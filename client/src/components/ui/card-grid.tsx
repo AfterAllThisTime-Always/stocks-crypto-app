@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa";
 import { ChartModal } from "./chart-popup";
 
 export const CardGrid = ({
@@ -54,19 +55,21 @@ export const CardGrid = ({
                 />
               )}
             </AnimatePresence>
-            <Card
-              onOpen={() => {
-                setIsChartOpen(true);
-                setSelectedChart(item);
-              }}
-            >
+            <Card>
               <CardTitle>{item.name}</CardTitle>
               <CardDescription>{item.current_price}</CardDescription>
               <img
                 className="w-16 absolute top-2 right-2"
                 src={item.image}
               ></img>
-              <LikeCard ClassName="absolute bottom-0 right-0" />
+              <LikeCard ClassName="absolute bottom-0 right-4" />
+              <ChartButton
+                ClassName="absolute bottom-0 right-12"
+                onOpen={() => {
+                  setIsChartOpen(true);
+                  setSelectedChart(item);
+                }}
+              />
             </Card>
             {/* {isChartOpen ? <ChartModal setIsChartOpen={setIsChartOpen} coinName={item.name}  /> : null} */}
           </Link>
@@ -94,19 +97,30 @@ export const LikeCard = ({ ClassName }: LikeCardProps) => {
     />
   );
 };
+export const ChartButton = ({
+  ClassName,
+  onOpen,
+}: {
+  ClassName: string;
+  onOpen: () => void;
+}) => {
+  return (
+    <FaChartLine
+      className={`${ClassName} text-green-400 cursor-pointer`}
+      onClick={onOpen}
+    />
+  );
+};
 
 export const Card = ({
   className,
   children,
-  onOpen,
 }: {
   className?: string;
   children: React.ReactNode;
-  onOpen: () => void;
 }) => {
   return (
     <div
-      onClick={onOpen}
       className={cn(
         "rounded-2xl h-full w-full p-4 bg-black border border-transparent relative z-20",
         className

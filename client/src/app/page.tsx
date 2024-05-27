@@ -43,7 +43,7 @@ export default function Home() {
       </div> */}
         <div className="relative flex justify-center">
           <Navbar />
-          <div className="absolute right-6 top-9">
+          <div className="absolute right-6 top-9 cursor-pointer">
             <FaUserCircle
               onClick={handleUserData}
               size={50}
