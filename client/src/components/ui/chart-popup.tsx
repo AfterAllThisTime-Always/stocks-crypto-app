@@ -10,6 +10,7 @@ import React, {
   SetStateAction,
 } from "react";
 import CoinChart from "./coin-chart";
+import { Coin } from "@/app/interfaces";
 
 const MouseEnterContext = createContext<
   [boolean, React.Dispatch<React.SetStateAction<boolean>>] | undefined
@@ -156,10 +157,12 @@ export const useMouseEnter = () => {
 };
 
 export function ChartModal({
-  setIsChartOpen} 
-  : {
-    setIsChartOpen: React.Dispatch<SetStateAction<boolean>>
-  }) {
+  setIsChartOpen,
+  coinData,
+}: {
+  setIsChartOpen: React.Dispatch<SetStateAction<boolean>>;
+  coinData: Coin | undefined;
+}) {
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -179,13 +182,13 @@ export function ChartModal({
           translateZ="50"
           className="text-xl font-bold text-neutral-600 dark:text-white"
         >
-          Make things float in air
+          {coinData?.name}
         </CardItem>
         <CardItem
           as="button"
           className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200"
           onClick={() => setIsChartOpen(false)}
-          >
+        >
           &times;
         </CardItem>
         <CardItem
@@ -193,10 +196,10 @@ export function ChartModal({
           translateZ="60"
           className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
         >
-          Hover over this card to unleash the power of CSS perspective
+          {coinData?.current_price}
         </CardItem>
         <CardItem translateZ="100" className="w-full mt-4">
-          < CoinChart />
+          <CoinChart />
         </CardItem>
         <div className="flex justify-between items-center mt-20">
           <CardItem

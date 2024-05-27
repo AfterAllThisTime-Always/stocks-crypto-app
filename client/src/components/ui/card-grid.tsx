@@ -17,12 +17,15 @@ export const CardGrid = ({
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isChartOpen, setIsChartOpen] = useState(false);
+  const [selectedChart, setSelectedChart] = useState<Coin>();
 
   return (
     <>
       <div
         className={cn(
-          "grid grid-cols-1 md:grid-cols-2  lg:grid-cols-5  py-10 relative z-10",
+          `grid grid-cols-1 md:grid-cols-2  lg:grid-cols-5  py-10 relative z-10 ${
+            isChartOpen ? "blur-[10px]" : ""
+          }`,
           className
         )}
       >
@@ -51,7 +54,12 @@ export const CardGrid = ({
                 />
               )}
             </AnimatePresence>
-            <Card onOpen={() => setIsChartOpen(true)}>
+            <Card
+              onOpen={() => {
+                setIsChartOpen(true);
+                setSelectedChart(item);
+              }}
+            >
               <CardTitle>{item.name}</CardTitle>
               <CardDescription>{item.current_price}</CardDescription>
               <img
@@ -60,10 +68,13 @@ export const CardGrid = ({
               ></img>
               <LikeCard ClassName="absolute bottom-0 right-0" />
             </Card>
+            {/* {isChartOpen ? <ChartModal setIsChartOpen={setIsChartOpen} coinName={item.name}  /> : null} */}
           </Link>
         ))}
       </div>
-      {isChartOpen ? <ChartModal setIsChartOpen={setIsChartOpen} /> : null}
+      {isChartOpen ? (
+        <ChartModal setIsChartOpen={setIsChartOpen} coinData={selectedChart} />
+      ) : null}
     </>
   );
 };

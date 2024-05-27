@@ -18,7 +18,7 @@
     --background-start-rgb: 10, 10, 10;
     --background-end-rgb: 0, 0, 0;
   }
-} */
+}  */
 
 /* body {
   color: rgb(var(--foreground-rgb));
@@ -36,4 +36,8 @@
 .home-container {
   display: grid;
   grid-template-rows: auto;
+}
+
+body{
+  background-color: black;
 }

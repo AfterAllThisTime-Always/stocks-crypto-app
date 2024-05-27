@@ -48,7 +48,7 @@ var apiKey = config.GetEnvValue("API_KEY")
 func getCoinData() ([]Coin, error) {
 	fmt.Println("chutki")
 
-	url := "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr"
+	url := "https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=volume_desc&per_page=1000&page=1&sparkline=false"
 
 	req, _ := http.NewRequest("GET", url, nil)
 
