@@ -7,7 +7,7 @@ import { Coin } from "./interfaces";
 import { FaUserCircle } from "react-icons/fa";
 import { LoginModal, SignupForm } from "./login";
 
-export function CoinCoin() {
+const CoinCoin = () => {
   const [coinData, setCoinData] = useState<Coin[]>();
   useEffect(() => {
     const getCoinData = async () => {
@@ -25,7 +25,7 @@ export function CoinCoin() {
       <CardGrid items={coinData} />
     </div>
   );
-}
+};
 export default function Home() {
   const [userData, setUserData] = useState(false);
   const handleUserData = () => {

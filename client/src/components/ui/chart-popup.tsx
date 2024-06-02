@@ -199,7 +199,7 @@ export function ChartModal({
           {coinData?.current_price}
         </CardItem>
         <CardItem translateZ="100" className="w-full mt-4">
-          <CoinChart />
+          <CoinChart coinData={coinData} />
         </CardItem>
         <div className="flex justify-between items-center mt-20">
           <CardItem

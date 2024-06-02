@@ -172,7 +172,6 @@ func CoinsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getCoinChart(currency string, coin string) (string, error) {
-	fmt.Println("Bheem")
 
 	url := fmt.Sprintf("https://api.coingecko.com/api/v3/coins/%s/market_chart?vs_currency=%s&days=365&interval=daily", coin, currency)
 
@@ -187,7 +186,9 @@ func getCoinChart(currency string, coin string) (string, error) {
 }
 
 func CoinChart(w http.ResponseWriter, r *http.Request) {
-	coinChart, err := getCoinChart("inr", "bitcoin")
+
+	fmt.Println("raju")
+	coinChart, err := getCoinChart("inr", r.URL.Query().Get("coinId"))
 	if err != nil {
 		http.Error(w, "Failed to fetch coin chart", http.StatusInternalServerError)
 		return

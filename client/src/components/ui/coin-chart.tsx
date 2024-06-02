@@ -1,6 +1,6 @@
 "use client";
 
-import { LineChartProps } from "@/app/interfaces";
+import { Coin, LineChartProps } from "@/app/interfaces";
 import axios from "axios";
 import {
   ChartOptions,
@@ -71,12 +71,16 @@ export const LineChart: React.FC<LineChartProps> = ({ data }) => {
   return <Line data={chartData} options={options} />;
 };
 
-const CoinChart = () => {
+const CoinChart = ({ coinData }: { coinData: Coin | undefined }) => {
+  console.log(coinData);
+
   const [coinChartData, setCoinChartData] = useState<any>();
   useEffect(() => {
     const getCoinChart = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/chart");
+        const response = await axios.get(
+          `http://localhost:8080/chart?coinId=${coinData?.id}`
+        );
         setCoinChartData(JSON.parse(response.data));
       } catch (error) {
         console.error("Error fetching coin data:", error);
