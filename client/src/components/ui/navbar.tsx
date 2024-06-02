@@ -16,45 +16,68 @@ export const Navbar = () => {
 function NavContainer({ className }: { className?: string }) {
   const [selectedOption, setSelectedOption] = useState("INR");
   const currencyCodes = [
-    "USD $", // United States Dollar
-    "EUR €", // Euro
-    "GBP £", // British Pound Sterling
-    "JPY ¥", // Japanese Yen
-    "CHF Fr.", // Swiss Franc
-    "CAD C$", // Canadian Dollar
-    "AUD A$", // Australian Dollar
-    "NZD NZ$", // New Zealand Dollar
-    "CNY ¥", // Chinese Yuan
-    "INR ₹", // Indian Rupee
-    "RUB ₽", // Russian Ruble
-    "BRL R$", // Brazilian Real
-    "MXN Mex$", // Mexican Peso
-    "SGD S$", // Singapore Dollar
-    "HKD HK$", // Hong Kong Dollar
-    "THB ฿", // Thai Baht
-    "IDR Rp", // Indonesian Rupiah
-    "KRW ₩", // South Korean Won
-    "TRY ₺", // Turkish Lira
-    "ZAR R", // South African Rand
-    "SEK kr", // Swedish Krona
-    "NOK kr", // Norwegian Krone
-    "DKK kr", // Danish Krone
-    "PLN zł", // Polish Zloty
-    "HUF Ft", // Hungarian Forint
-    "CZK Kč", // Czech Republic Koruna
-    "ILS ₪", // Israeli New Shekel
-    "ARS $", // Argentine Peso
-    "CLP $", // Chilean Peso
-    "PHP ₱", // Philippine Peso
-    "AED د.إ", // United Arab Emirates Dirham
-    "SAR ر.س", // Saudi Riyal
-    "MYR RM", // Malaysian Ringgit
-    "VND ₫", // Vietnamese Dong
-    "NGN ₦", // Nigerian Naira
-    "EGP E£", // Egyptian Pound
-    "KWD د.ك", // Kuwaiti Dinar
-    "QAR ر.ق", // Qatari Riyal
-    "PEN S/.", // Peruvian Sol
+    "btc",
+    "eth",
+    "ltc",
+    "bch",
+    "bnb",
+    "eos",
+    "xrp",
+    "xlm",
+    "link",
+    "dot",
+    "yfi",
+    "usd",
+    "aed",
+    "ars",
+    "aud",
+    "bdt",
+    "bhd",
+    "bmd",
+    "brl",
+    "cad",
+    "chf",
+    "clp",
+    "cny",
+    "czk",
+    "dkk",
+    "eur",
+    "gbp",
+    "gel",
+    "hkd",
+    "huf",
+    "idr",
+    "ils",
+    "inr",
+    "jpy",
+    "krw",
+    "kwd",
+    "lkr",
+    "mmk",
+    "mxn",
+    "myr",
+    "ngn",
+    "nok",
+    "nzd",
+    "php",
+    "pkr",
+    "pln",
+    "rub",
+    "sar",
+    "sek",
+    "sgd",
+    "thb",
+    "try",
+    "twd",
+    "uah",
+    "vef",
+    "vnd",
+    "zar",
+    "xdr",
+    "xag",
+    "xau",
+    "bits",
+    "sats",
   ];
 
   const handleSelectOption = (option: string) => {

@@ -26,6 +26,6 @@ func MongoClient() (*mongo.Client, error) {
 	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{Key: "ping", Value: 1}}).Err(); err != nil {
 		panic(err)
 	}
-	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+	fmt.Println("Successfully connected to MongoDB!")
 	return client, nil
 }
