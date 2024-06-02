@@ -55,8 +55,11 @@ func getCoinData() ([]Coin, error) {
 	req.Header.Add("accept", "application/json")
 	req.Header.Add("x-cg-demo-api-key", apiKey)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, error1 := http.DefaultClient.Do(req)
 
+	if error1 != nil {
+		return nil, nil
+	}
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
@@ -179,7 +182,10 @@ func getCoinChart(currency string, coin string) (string, error) {
 
 	req.Header.Add("accept", "application/json")
 	req.Header.Add("x-cg-demo-api-key", "CG-N1XfDjYtr1KoWbKX28yutQ2L")
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", nil
+	}
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 	return string(body), nil
