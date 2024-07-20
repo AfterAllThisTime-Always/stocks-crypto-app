@@ -134,12 +134,20 @@ function NavContainer({ className }: { className?: string }) {
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div>
         </MenuItem>
-        <Dropdown
+        <MenuItem setActive={setActive} active={active} item={selectedOption} >
+          <div className=" text-sm grid grid-cols-10 gap-10 p-4">
+            {currencyCodes.map((code) => (
+              <HoveredLink href = "#" onClick={() => handleSelectOption(code)}>{code}</HoveredLink>
+            ))}
+          </div>
+        </MenuItem>
+
+        {/* <Dropdown
           onSelect={handleSelectOption}
           selectedOption={selectedOption}
           options={currencyCodes}
-          //className="absolute bottom-2 left-2"
-        />
+          className="absolute bottom-2 left-2"
+        /> */}
       </Menu>
     </div>
   );
