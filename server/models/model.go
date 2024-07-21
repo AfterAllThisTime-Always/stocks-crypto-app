@@ -1,31 +1,19 @@
 package model
 
 import (
-	"context"
-	"fmt"
-	"server/config"
-
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func MongoClient() (*mongo.Client, error) {
-	var mongoUrl = config.GetEnvValue("MONGO_URL")
-	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI(mongoUrl).SetServerAPIOptions(serverAPI)
-	client, err := mongo.Connect(context.TODO(), opts)
-	if err != nil {
-		panic(err)
-	}
-	defer func() {
-		if err = client.Disconnect(context.TODO()); err != nil {
-			panic(err)
-		}
-	}()
-	if err := client.Database("admin").RunCommand(context.TODO(), bson.D{{Key: "ping", Value: 1}}).Err(); err != nil {
-		panic(err)
-	}
-	fmt.Println("Successfully connected to MongoDB!")
-	return client, nil
+type User struct {
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
+	Name     string             `bson:"name, omitempty"`
+	Email    string             `bson:"email, omitempty"`
+	Password string             `bson:"password, omitempty"`
+}
+
+type Preferences struct {
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
+	Email    string             `bson:"email, omitempty"`
+	Favs     []string           `bson:"favs, omitempty"`
+	Currency string             `bson:"currency, omitempty"`
 }

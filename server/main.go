@@ -3,12 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
+	config "server/config"
 	controller "server/controllers"
-	model "server/models"
 )
 
 func main() {
-	model.MongoClient()
+	config.MongoClient()
 	http.HandleFunc("/coins", controller.CoinsHandler)
 	http.HandleFunc("/chart", controller.CoinChart)
 	log.Println("Server started on :8080")
