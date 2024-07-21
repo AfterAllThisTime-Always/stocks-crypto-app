@@ -41,3 +41,5 @@ func MongoClient() (*mongo.Client, error) {
 	fmt.Println("Successfully connected to MongoDB!")
 	return client, nil
 }
+
+var Conn, Err = MongoClient()

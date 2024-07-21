@@ -157,8 +157,6 @@ func getCoinChart(currency string, coin string) (string, error) {
 }
 
 func CoinChart(w http.ResponseWriter, r *http.Request) {
-
-	fmt.Println("raju")
 	coinChart, err := getCoinChart("inr", r.URL.Query().Get("coinId"))
 	if err != nil {
 		http.Error(w, "Failed to fetch coin chart", http.StatusInternalServerError)
