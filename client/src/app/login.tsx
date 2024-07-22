@@ -4,12 +4,14 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
+import { Bounce, toast } from "react-toastify";
 
 import {
   IconBrandGithub,
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import axios from "axios";
 
 export function SignupForm({
   setUserData,
@@ -18,9 +20,47 @@ export function SignupForm({
   setUserData: React.Dispatch<SetStateAction<boolean>>;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const signupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const signupBody = {
+      name: `${firstName} ${lastName}`,
+      email: email,
+      password: password,
+    };
     console.log("Form submitted");
+    useEffect(() => {
+      const signupUser = async () => {
+        const { data } = await axios.post(
+          "http://localhost:8080/user/signup",
+          signupBody
+        );
+        localStorage.setItem("token", data.token);
+        const { success, message } = data;
+        if (success) {
+          toast.success(message, {
+            position: "bottom-right",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+          });
+          setTimeout(() => {
+            setUserData(false);
+          }, 1000);
+        } else {
+          toast.error(message);
+        }
+      };
+    }, []);
   };
   return (
     <div className="relative max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black border-2 border-green-600 hover:border-green-700 ">
@@ -35,15 +75,25 @@ export function SignupForm({
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300"></p>
 
-      <form className="my-8" onSubmit={handleSubmit}>
+      <form className="my-8" onSubmit={signupSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Harry" type="text" />
+            <Input
+              id="firstname"
+              placeholder="Harry"
+              type="text"
+              onChange={(e) => setFirstName(e.target.value)}
+            />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Potter" type="text" />
+            <Input
+              id="lastname"
+              placeholder="Potter"
+              type="text"
+              onChange={(e) => setLastName(e.target.value)}
+            />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
@@ -52,11 +102,17 @@ export function SignupForm({
             id="email"
             placeholder="projectpotter@hogwarts.com"
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </LabelInputContainer>
         {/* <LabelInputContainer className="mb-8">
           <Label htmlFor="twitterpassword">Your twitter password</Label>

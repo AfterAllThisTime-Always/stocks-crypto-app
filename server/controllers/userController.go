@@ -44,7 +44,6 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// generate token
 	token, err := auth.GenerateToken(newUser.InsertedID.(primitive.ObjectID).Hex(), user.Name)
 	fmt.Println(err)
 	if err != nil {
@@ -83,8 +82,8 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	fmt.Println(result)
-	fmt.Println(body)
+	// fmt.Println(result)
+	// fmt.Println(body)
 
 	if result.Password != body.Password {
 		response := map[string]interface{}{
