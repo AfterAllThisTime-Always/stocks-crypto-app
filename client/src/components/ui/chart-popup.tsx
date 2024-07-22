@@ -201,7 +201,7 @@ export function ChartModal({
         <CardItem translateZ="100" className="w-full mt-4">
           <CoinChart coinData={coinData} />
         </CardItem>
-        <div className="flex justify-between items-center mt-20">
+        {/* <div className="flex justify-between items-center mt-20">
           <CardItem
             translateZ={20}
             as="a"
@@ -218,7 +218,7 @@ export function ChartModal({
           >
             Sign up
           </CardItem>
-        </div>
+        </div> */}
       </CardBody>
     </CardContainer>
   );
