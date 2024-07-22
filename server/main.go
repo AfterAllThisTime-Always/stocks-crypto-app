@@ -26,5 +26,5 @@ func main() {
 	c := corsOpts.Handler(r)
 
 	fmt.Println("Server started on", port)
-	log.Fatal(http.ListenAndServe(port, c))
+	log.Fatal(http.ListenAndServe(":"+port, c))
 }
