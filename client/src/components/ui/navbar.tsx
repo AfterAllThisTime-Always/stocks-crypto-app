@@ -134,10 +134,16 @@ function NavContainer({ className }: { className?: string }) {
             <HoveredLink href="/enterprise">Enterprise</HoveredLink>
           </div>
         </MenuItem>
-        <MenuItem setActive={setActive} active={active} item={selectedOption} >
+        <MenuItem setActive={setActive} active={active} item={selectedOption}>
           <div className=" text-sm grid grid-cols-10 gap-10 p-4">
-            {currencyCodes.map((code) => (
-              <HoveredLink href = "#" onClick={() => handleSelectOption(code)}>{code}</HoveredLink>
+            {currencyCodes.map((code, index) => (
+              <HoveredLink
+                key={index}
+                href="#"
+                onClick={() => handleSelectOption(code)}
+              >
+                {code}
+              </HoveredLink>
             ))}
           </div>
         </MenuItem>
