@@ -22,7 +22,7 @@ const CoinCoin = () => {
     getCoinData();
   }, []);
   return (
-    <div /*className="max-w-5xl mx-auto px-8"*/>
+    <div>
       <CardGrid items={coinData} />
     </div>
   );

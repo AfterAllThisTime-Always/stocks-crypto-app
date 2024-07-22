@@ -35,6 +35,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	// insert new user in db
 	newUser, err := coll.InsertOne(context.Background(), user)
 	if err != nil {
+		fmt.Printf("%s", err.Error())
 		w.WriteHeader(200)
 		response := map[string]interface{}{
 			"message": "Failed to create user",
@@ -45,8 +46,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token, err := auth.GenerateToken(newUser.InsertedID.(primitive.ObjectID).Hex(), user.Name)
-	fmt.Println(err)
 	if err != nil {
+		fmt.Printf("%s", err)
 		w.WriteHeader(200)
 		response := map[string]interface{}{
 			"message": "Could not generate token",
@@ -65,27 +66,23 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func LoginUser(w http.ResponseWriter, r *http.Request) {
-	var body model.User
-
-	err := json.NewDecoder(r.Body).Decode(&body)
+	var user model.User
+	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
-		panic(err)
+		fmt.Printf("%s", err.Error())
 	}
 
-	trueUser := coll.FindOne(context.Background(), bson.M{"email": body.Email})
+	trueUser := coll.FindOne(context.Background(), bson.M{"email": user.Email})
 	if trueUser.Err() != nil {
-		panic("problem")
+		fmt.Printf("problem")
 	}
 
 	var result model.User
 	if err := trueUser.Decode(&result); err != nil {
-		panic(err)
+		fmt.Printf("%s", err.Error())
 	}
 
-	// fmt.Println(result)
-	// fmt.Println(body)
-
-	if result.Password != body.Password {
+	if result.Password != user.Password {
 		response := map[string]interface{}{
 			"message": "Wrong password",
 			"success": true,

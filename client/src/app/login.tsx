@@ -25,7 +25,7 @@ export function SignupForm({
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const signupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const signupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const signupBody = {
       name: `${firstName} ${lastName}`,
@@ -33,34 +33,44 @@ export function SignupForm({
       password: password,
     };
     console.log("Form submitted");
-    useEffect(() => {
-      const signupUser = async () => {
-        const { data } = await axios.post(
-          "http://localhost:8080/user/signup",
-          signupBody
-        );
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8080/user/signup",
+        signupBody
+      );
+      const { success, message } = data;
+      if (success) {
         localStorage.setItem("token", data.token);
-        const { success, message } = data;
-        if (success) {
-          toast.success(message, {
-            position: "bottom-right",
-            autoClose: 1500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-            transition: Bounce,
-          });
-          setTimeout(() => {
-            setUserData(false);
-          }, 1000);
-        } else {
-          toast.error(message);
-        }
-      };
-    }, []);
+        toast.success(message, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        setTimeout(() => {
+          setUserData(false);
+        }, 1000);
+      } else {
+        toast.error(message, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="relative max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black border-2 border-green-600 hover:border-green-700 ">
@@ -153,9 +163,56 @@ export function LoginForm({
   setUserData: React.Dispatch<SetStateAction<boolean>>;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(email, password);
+
     e.preventDefault();
+    const loginBody = {
+      email: email,
+      password: password,
+    };
     console.log("Form submitted");
+    try {
+      const { data } = await axios.post(
+        "http://localhost:8080/user/login",
+        loginBody
+      );
+      const { success, message } = data;
+      if (success) {
+        localStorage.setItem("token", data.token);
+        toast.success(message, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        setTimeout(() => {
+          setUserData(false);
+        }, 1000);
+      } else {
+        toast.error(message, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="relative max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black border-2 border-green-600 hover:border-green-700 ">
@@ -177,11 +234,17 @@ export function LoginForm({
             id="email"
             placeholder="projectpotter@hogwarts.com"
             type="email"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </LabelInputContainer>
         {/* <LabelInputContainer className="mb-8">
           <Label htmlFor="twitterpassword">Your twitter password</Label>
