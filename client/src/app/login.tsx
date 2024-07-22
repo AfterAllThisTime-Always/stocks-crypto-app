@@ -35,7 +35,7 @@ export function SignupForm({
     console.log("Form submitted");
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/user/signup",
+        `${process.env.NEXT_PUBLIC_API_URL}/user/signup`,
         signupBody
       );
       const { success, message } = data;
@@ -177,7 +177,7 @@ export function LoginForm({
     console.log("Form submitted");
     try {
       const { data } = await axios.post(
-        "http://localhost:8080/user/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
         loginBody
       );
       const { success, message } = data;
@@ -300,26 +300,6 @@ const LabelInputContainer = ({
     </div>
   );
 };
-
-// export function LoginModal = ({
-//   setUserData,
-// }: {
-//   setUserData: React.Dispatch<SetStateAction<boolean>>;
-// }) => {
-//   useEffect(() => {
-//     const handleEsc = (event: KeyboardEvent) => {
-//       if (event.key === "Escape") {
-//         setUserData(false);
-//       }
-//     };
-
-//     window.addEventListener("keydown", handleEsc);
-//     return () => {
-//       window.removeEventListener("keydown", handleEsc);
-//     };
-//   }, [setUserData]);
-//   return <SignupForm />;
-// };
 
 export function LoginModal({
   setUserData,
