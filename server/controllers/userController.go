@@ -64,3 +64,52 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	json.NewEncoder(w).Encode(response)
 }
+
+func LoginUser(w http.ResponseWriter, r *http.Request) {
+	var body model.User
+
+	err := json.NewDecoder(r.Body).Decode(&body)
+	if err != nil {
+		panic(err)
+	}
+
+	trueUser := coll.FindOne(context.Background(), bson.M{"email": body.Email})
+	if trueUser.Err() != nil {
+		panic("problem")
+	}
+
+	var result model.User
+	if err := trueUser.Decode(&result); err != nil {
+		panic(err)
+	}
+
+	fmt.Println(result)
+	fmt.Println(body)
+
+	if result.Password != body.Password {
+		response := map[string]interface{}{
+			"message": "Wrong password",
+			"success": true,
+		}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	token, _ := auth.GenerateToken(result.Id.Hex(), result.Name)
+
+	response := map[string]interface{}{
+		"message": "Successfully logged in",
+		"success": true,
+		"token":   token,
+	}
+
+	jsonBytes, err := json.Marshal(response)
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonBytes)
+}
