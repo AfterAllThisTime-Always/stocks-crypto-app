@@ -79,7 +79,7 @@ const CoinChart = ({ coinData }: { coinData: Coin | undefined }) => {
     const getCoinChart = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/chart?coinId=${coinData?.id}`
+          `http://localhost:8080/cryptix/chart?coinId=${coinData?.id}`
         );
         setCoinChartData(JSON.parse(response.data));
       } catch (error) {
