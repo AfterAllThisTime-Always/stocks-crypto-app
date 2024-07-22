@@ -3,22 +3,19 @@ package config
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-
-	"github.com/joho/godotenv"
 )
 
 func GetEnvValue(key string) string {
-	err := godotenv.Load(".env")
+	// err := godotenv.Load(".env")
 
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file")
+	// }
 	return os.Getenv(key)
 }
 
